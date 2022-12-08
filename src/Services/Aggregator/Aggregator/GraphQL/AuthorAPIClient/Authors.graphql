@@ -1,0 +1,8 @@
+query Authors {
+    authors{
+        id,
+		name,
+		bio,
+		photoUrl
+    }
+}

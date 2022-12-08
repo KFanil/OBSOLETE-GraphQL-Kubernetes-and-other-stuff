@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: author-api-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: authorapi
+  template:
+    metadata:
+      labels:
+        app: authorapi
+    spec:
+      containers:
+        - name: authorapi
+          image: kfanil/authorapi:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: author-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: authorapi
+  ports:
+  - name: authorapi
+    protocol: TCP
+    port: 80
+    targetPort: 80

@@ -1,0 +1,77 @@
+﻿schema {
+  query: Query
+  mutation: Mutation
+}
+
+"Represents the author."
+type Author {
+  id: Int!
+  name: String!
+  photoUrl: String!
+  bio: String!
+}
+
+type Query {
+  authors(where: AuthorFilterInput order: [AuthorSortInput!]): [Author!]!
+  authorById(id: Int! where: AuthorFilterInput order: [AuthorSortInput!]): [Author!]!
+}
+
+type Mutation {
+  addAuthor(authorInput: AddAuthorInput!): Author!
+}
+
+input AuthorFilterInput {
+  and: [AuthorFilterInput!]
+  or: [AuthorFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  name: StringOperationFilterInput
+  photoUrl: StringOperationFilterInput
+  bio: StringOperationFilterInput
+}
+
+input AuthorSortInput {
+  id: SortEnumType
+  name: SortEnumType
+  photoUrl: SortEnumType
+  bio: SortEnumType
+}
+
+input ComparableInt32OperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int!]
+  nin: [Int!]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+input AddAuthorInput {
+  name: String!
+  bio: String!
+}

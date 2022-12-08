@@ -1,0 +1,11 @@
+query Comments {
+    comments{
+		id
+		authorId,
+		postId,
+		content,
+		created_At,
+		updated_At,
+		path
+    }
+}

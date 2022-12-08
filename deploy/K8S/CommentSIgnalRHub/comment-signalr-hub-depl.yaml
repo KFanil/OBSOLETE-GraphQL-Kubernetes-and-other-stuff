@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comment-signalr-hub-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: commentsignalrhub
+  template:
+    metadata:
+      labels:
+        app: commentsignalrhub
+    spec:
+      containers:
+        - name: commentsignalrhub
+          image: kfanil/commentsignalrhub:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comment-signalr-hub-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: commentsignalrhub
+  ports:
+  - name: commentsignalrhub
+    protocol: TCP
+    port: 80
+    targetPort: 80

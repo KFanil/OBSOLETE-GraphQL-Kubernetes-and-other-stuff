@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: reactapp-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: reactapp
+  template:
+    metadata:
+      labels:
+        app: reactapp
+    spec:
+      containers:
+      - name: reactapp
+        image: kfanil/reactapp:latest
+        ports:
+        - containerPort: 3000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: reactapp-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: reactapp
+  ports:
+  - name: reactapp
+    protocol: TCP
+    port: 3000
+    targetPort: 3000

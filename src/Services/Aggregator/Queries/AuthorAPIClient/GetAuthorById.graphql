@@ -1,0 +1,8 @@
+query GetAuthorById($authorId: Int!){
+	authorById(id: $authorId){
+		id,
+		name,
+		bio,
+		photoUrl
+	}
+}

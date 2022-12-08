@@ -1,0 +1,20 @@
+query Categories {
+    categories
+    {
+      id,
+      name
+      slug,
+      posts {  
+        id,
+        title,
+        slug,
+        excerpt,
+        content,
+        featuredImageUrl,
+        isFeaturedPost,
+        authorId,
+        created_At,
+        updated_At
+      }
+    }
+}

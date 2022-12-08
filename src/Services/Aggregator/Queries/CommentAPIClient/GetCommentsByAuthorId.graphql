@@ -1,0 +1,11 @@
+query GetCommentsByAuthorId($authorId: Int!){
+  commentsByAuthorId(authorId: $authorId){
+    id,
+    authorId,
+    postId,
+    content,
+    created_At,
+    updated_At,
+    path
+  }
+}

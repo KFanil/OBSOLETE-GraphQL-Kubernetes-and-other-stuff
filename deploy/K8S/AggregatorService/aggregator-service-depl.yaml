@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aggregator-service-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: aggregatorservice
+  template:
+    metadata:
+      labels:
+        app: aggregatorservice
+    spec:
+      containers:
+        - name: aggregatorservice
+          image: kfanil/aggregatorservice:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: aggregator-service-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: aggregatorservice
+  ports:
+  - name: aggregatorservice
+    protocol: TCP
+    port: 80
+    targetPort: 80

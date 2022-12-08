@@ -1,0 +1,25 @@
+mutation AddComment(
+  $postId: Int!
+  $authorId: Int!
+  $content: String!
+  $created_At: DateTime!
+  $updated_At: DateTime!
+) {
+  addComment(
+    commentInput: {
+      postId: $postId
+      authorId: $authorId
+      content: $content
+      created_At: $created_At
+      updated_At: $updated_At
+    }
+  ) {
+    id
+    authorId
+    postId
+    content
+    created_At
+    updated_At
+    path
+  }
+}

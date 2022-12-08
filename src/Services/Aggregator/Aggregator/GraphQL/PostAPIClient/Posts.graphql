@@ -1,0 +1,23 @@
+query Posts{
+  posts {
+    edges{
+      node{
+        id,
+        title,
+        slug,
+        excerpt,
+        content,
+        featuredImageUrl,
+        isFeaturedPost,
+        authorId,
+        created_At,
+        updated_At
+        categories {
+          id,
+          name,
+          slug
+        }
+      }
+    }
+  }   
+}

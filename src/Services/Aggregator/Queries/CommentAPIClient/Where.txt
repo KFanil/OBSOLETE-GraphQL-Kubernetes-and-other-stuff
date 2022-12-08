@@ -1,0 +1,14 @@
+query {
+  comments(where: { and: [ { id: { eq: 1 } }, 
+                              { authorId: { eq: 1 } } 
+                              ]} )
+
+
+query {
+  comments(where: { or: [ { or: [ { id: { eq: 1 } }, { authorId: { eq: 2 } } ] }, 
+  { or: [ { id: { eq: 1 } }, { authorId: { eq: 2 } } ] } ] } )
+  {
+    id
+    content
+  }
+}

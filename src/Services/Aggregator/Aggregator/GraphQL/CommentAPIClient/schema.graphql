@@ -1,0 +1,108 @@
+﻿schema {
+  query: Query
+  mutation: Mutation
+}
+
+type Comment {
+  id: Int!
+  authorId: Int!
+  postId: Int!
+  content: String!
+  created_At: DateTime!
+  updated_At: DateTime!
+  path: String!
+}
+
+type Query {
+  comments(where: CommentFilterInput order: [CommentSortInput!]): [Comment!]!
+  commentsByAuthorId(authorId: Int! where: CommentFilterInput order: [CommentSortInput!]): [Comment!]!
+  commentById(id: Int! where: CommentFilterInput order: [CommentSortInput!]): [Comment!]!
+  commentsByPostId(postId: Int! where: CommentFilterInput order: [CommentSortInput!]): [Comment!]!
+}
+
+type Mutation {
+  addComment(commentInput: AddCommentInput!): Comment!
+}
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime
+
+input CommentFilterInput {
+  and: [CommentFilterInput!]
+  or: [CommentFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  authorId: ComparableInt32OperationFilterInput
+  postId: ComparableInt32OperationFilterInput
+  content: StringOperationFilterInput
+  created_At: ComparableDateTimeOffsetOperationFilterInput
+  updated_At: ComparableDateTimeOffsetOperationFilterInput
+  path: StringOperationFilterInput
+}
+
+input CommentSortInput {
+  id: SortEnumType
+  authorId: SortEnumType
+  postId: SortEnumType
+  content: SortEnumType
+  created_At: SortEnumType
+  updated_At: SortEnumType
+  path: SortEnumType
+}
+
+input ComparableInt32OperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int!]
+  nin: [Int!]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input ComparableDateTimeOffsetOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime!]
+  nin: [DateTime!]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+input AddCommentInput {
+  postId: Int!
+  authorId: Int!
+  content: String!
+  created_At: DateTime!
+  updated_At: DateTime!
+}

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comment-api-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: commentapi
+  template:
+    metadata:
+      labels:
+        app: commentapi
+    spec:
+      containers:
+        - name: commentapi
+          image: kfanil/commentapi:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comment-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: commentapi
+  ports:
+  - name: commentapi
+    protocol: TCP
+    port: 80
+    targetPort: 80

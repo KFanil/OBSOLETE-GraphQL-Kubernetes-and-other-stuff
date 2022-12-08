@@ -1,0 +1,193 @@
+﻿schema {
+  query: Query
+  mutation: Mutation
+}
+
+"Represents the post."
+type Post {
+  "This is the list of categories"
+  categories: [[Category!]!]
+  id: Int!
+  title: String!
+  slug: String!
+  excerpt: String!
+  content: String!
+  featuredImageUrl: String!
+  isFeaturedPost: Boolean!
+  authorId: Int!
+  created_At: DateTime!
+  updated_At: DateTime!
+}
+
+"Represents the post."
+type Category {
+  "This is the list of categories"
+  posts: [[Post!]!]
+  id: Int!
+  name: String!
+  slug: String!
+}
+
+type Query {
+  posts("Returns the first _n_ elements from the list." first: Int "Returns the elements in the list that come after the specified cursor." after: String "Returns the last _n_ elements from the list." last: Int "Returns the elements in the list that come before the specified cursor." before: String where: PostFilterInput order: [PostSortInput!]): PostsConnection
+  categories(where: CategoryFilterInput order: [CategorySortInput!]): [Category!]!
+}
+
+type Mutation {
+  addAuthor(postInput: AddPostInput!): Post!
+}
+
+"The `DateTime` scalar represents an ISO-8601 compliant date time type."
+scalar DateTime
+
+input PostFilterInput {
+  and: [PostFilterInput!]
+  or: [PostFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  title: StringOperationFilterInput
+  slug: StringOperationFilterInput
+  excerpt: StringOperationFilterInput
+  content: StringOperationFilterInput
+  featuredImageUrl: StringOperationFilterInput
+  isFeaturedPost: BooleanOperationFilterInput
+  authorId: ComparableInt32OperationFilterInput
+  created_At: ComparableDateTimeOffsetOperationFilterInput
+  updated_At: ComparableDateTimeOffsetOperationFilterInput
+  categories: ListFilterInputTypeOfCategoryFilterInput
+}
+
+input PostSortInput {
+  id: SortEnumType
+  title: SortEnumType
+  slug: SortEnumType
+  excerpt: SortEnumType
+  content: SortEnumType
+  featuredImageUrl: SortEnumType
+  isFeaturedPost: SortEnumType
+  authorId: SortEnumType
+  created_At: SortEnumType
+  updated_At: SortEnumType
+}
+
+input CategoryFilterInput {
+  and: [CategoryFilterInput!]
+  or: [CategoryFilterInput!]
+  id: ComparableInt32OperationFilterInput
+  name: StringOperationFilterInput
+  slug: StringOperationFilterInput
+  posts: ListFilterInputTypeOfPostFilterInput
+}
+
+input CategorySortInput {
+  id: SortEnumType
+  name: SortEnumType
+  slug: SortEnumType
+}
+
+"A connection to a list of items."
+type PostsConnection {
+  "Information to aid in pagination."
+  pageInfo: PageInfo!
+  "A list of edges."
+  edges: [PostsEdge!]
+  "A flattened list of the nodes."
+  nodes: [Post!]
+}
+
+input ComparableInt32OperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int!]
+  nin: [Int!]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input BooleanOperationFilterInput {
+  eq: Boolean
+  neq: Boolean
+}
+
+input ComparableDateTimeOffsetOperationFilterInput {
+  eq: DateTime
+  neq: DateTime
+  in: [DateTime!]
+  nin: [DateTime!]
+  gt: DateTime
+  ngt: DateTime
+  gte: DateTime
+  ngte: DateTime
+  lt: DateTime
+  nlt: DateTime
+  lte: DateTime
+  nlte: DateTime
+}
+
+input ListFilterInputTypeOfCategoryFilterInput {
+  all: CategoryFilterInput
+  none: CategoryFilterInput
+  some: CategoryFilterInput
+  any: Boolean
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+input ListFilterInputTypeOfPostFilterInput {
+  all: PostFilterInput
+  none: PostFilterInput
+  some: PostFilterInput
+  any: Boolean
+}
+
+"Information about pagination in a connection."
+type PageInfo {
+  "Indicates whether more edges exist following the set defined by the clients arguments."
+  hasNextPage: Boolean!
+  "Indicates whether more edges exist prior the set defined by the clients arguments."
+  hasPreviousPage: Boolean!
+  "When paginating backwards, the cursor to continue."
+  startCursor: String
+  "When paginating forwards, the cursor to continue."
+  endCursor: String
+}
+
+"An edge in a connection."
+type PostsEdge {
+  "A cursor for use in pagination."
+  cursor: String!
+  "The item at the end of the edge."
+  node: Post!
+}
+
+input AddPostInput {
+  title: String!
+  slug: String!
+  excerpt: String!
+  content: String!
+  featuredImageUrl: String!
+  catregoriesId: [Int!]!
+}

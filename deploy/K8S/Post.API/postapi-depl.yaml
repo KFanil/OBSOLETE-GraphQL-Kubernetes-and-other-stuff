@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-api-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postapi
+  template:
+    metadata:
+      labels:
+        app: postapi
+    spec:
+      containers:
+        - name: postapi
+          image: kfanil/postapi:latest
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: post-clusterip-srv
+spec:
+  type: ClusterIP
+  selector:
+    app: postapi
+  ports:
+  - name: postapi
+    protocol: TCP
+    port: 80
+    targetPort: 80
